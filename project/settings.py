@@ -39,9 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # My apps
+    "apps.category",
+    "apps.note",
+    "apps.space",
+    "apps.tag",
     "apps.user",
     "apps.user_profile",
-    "apps.space",
+    "apps.video",
 
     # Third-party apps
     "rest_framework",

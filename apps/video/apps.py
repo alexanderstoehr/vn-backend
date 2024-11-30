@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SpaceConfig(AppConfig):
+class VideoConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.space'
+    name = 'apps.video'

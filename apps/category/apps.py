@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SpaceConfig(AppConfig):
+class CategoryConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.space'
+    name = 'apps.category'
