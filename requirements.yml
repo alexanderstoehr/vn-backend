@@ -4,3 +4,8 @@ dependencies:
     - pip=24.2
     - pip:
         - django==4.2.16
+        - psycopg2-binary==2.9.10
+        - django-dotenv==1.4.2
+        - djangorestframework==3.15.2
+        - drf-yasg==1.21.8
+
