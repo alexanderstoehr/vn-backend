@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     # My apps
     "apps.user",
+    "apps.user_profile",
+    "apps.space",
 
     # Third-party apps
     "rest_framework",
