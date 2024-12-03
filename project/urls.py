@@ -40,4 +40,5 @@ urlpatterns = [
     path("api/categories/", include("apps.category.urls")),
     path('api/', include('apps.tag.urls')),  # Include the tag app URLs
     path('api/', include('apps.note.urls')),  # Include the user app URLs
+    path('api/', include('apps.video.urls')),  # Include the user app URLs
     ]
