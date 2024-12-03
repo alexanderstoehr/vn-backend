@@ -21,7 +21,7 @@ class ListAllCategories (ListAPIView):
 class AttachCategoryToVideo(APIView):
     def post(self, request, *args, **kwargs):
         category_id = request.data.get('category_id')
-        video_id = request.data.get('video_id')
+        video_id = self.kwargs.get('video_id')
 
         if not category_id or not video_id:
             return Response({'error': 'Category ID and video ID are required'}, status=status.HTTP_400_BAD_REQUEST)

@@ -3,7 +3,7 @@ from django.urls import path
 from .views import AttachTagToVideoView, DetachTagFromVideoView
 
 urlpatterns = [
-    path('attach-tag/', AttachTagToVideoView.as_view(), name='attach-tag-to-video'),
-    path('detach-tag/', DetachTagFromVideoView.as_view(), name='detach-tag-from-video'),
+    path('tag/attach/<int:video_id>/', AttachTagToVideoView.as_view(), name='attach-tag-to-video'),
+    path('tag/detach/<int:video_id>/', DetachTagFromVideoView.as_view(), name='detach-tag-from-video'),
 
     ]

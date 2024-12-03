@@ -38,6 +38,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path("api/categories/", include("apps.category.urls")),
-    path('api/tag/', include('apps.tag.urls')),  # Include the tag app URLs
-
+    path('api/', include('apps.tag.urls')),  # Include the tag app URLs
+    path('api/', include('apps.note.urls')),  # Include the user app URLs
     ]

@@ -9,7 +9,7 @@ from apps.video.models import Video  # Import the Video model
 class AttachTagToVideoView(APIView):
     def post(self, request, *args, **kwargs):
         tag_name = request.data.get('tag_name')
-        video_id = request.data.get('video_id')
+        video_id = self.kwargs.get('video_id')
 
         if not tag_name or not video_id:
             return Response({'error': 'Tag name and video_id are required'}, status=status.HTTP_400_BAD_REQUEST)
@@ -29,7 +29,7 @@ class AttachTagToVideoView(APIView):
 class DetachTagFromVideoView(APIView):
     def post(self, request, *args, **kwargs):
         tag_name = request.data.get('tag_name')
-        video_id = request.data.get('video_id')
+        video_id = self.kwargs.get('video_id')
 
         if not tag_name or not video_id:
             return Response({'error': 'Tag name and video_id are required'}, status=status.HTTP_400_BAD_REQUEST)
