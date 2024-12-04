@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated
 
 from apps.space.models import Space
 from apps.space.serializer import SpaceSerializer
@@ -12,7 +13,10 @@ from apps.space.serializer import SpaceSerializer
 
 class ListCreateSpaceView(ListCreateAPIView):
     serializer_class = SpaceSerializer
-    queryset = Space.objects.all()
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Space.objects.filter(space_owner__user=self.request.user)
 
 
 # # GET a single space and its videos
