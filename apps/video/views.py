@@ -1,10 +1,10 @@
 from rest_framework import status
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, CreateAPIView, ListAPIView, ListCreateAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView,ListCreateAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.space.models import Space
 from apps.video.models import Video
-from apps.video.serializer import VideoSerializer
+from apps.video.serializer import VideoSerializer, VideoCreateSerializer
 
 
 # Create your views here.
@@ -12,7 +12,17 @@ from apps.video.serializer import VideoSerializer
 # # GET all videos from a space
 class ListCreateVideosView(ListCreateAPIView):
     serializer_class = VideoSerializer
-    queryset = Video.objects.all()
+    permission_classes = [IsAuthenticated]
+    #queryset = Video.objects.all()
+
+    def get_queryset(self):
+        return Video.objects.filter(video_owner__user=self.request.user)
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return VideoCreateSerializer
+        return VideoSerializer
+
 
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
