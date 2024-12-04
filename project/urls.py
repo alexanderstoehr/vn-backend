@@ -37,8 +37,9 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path("api/categories/", include("apps.category.urls")),
-    path('api/', include('apps.tag.urls')),  # Include the tag app URLs
-    path('api/', include('apps.note.urls')),  # Include the user app URLs
-    path('api/', include('apps.video.urls')),  # Include the user app URLs
+    path("api/categories/", include("apps.category.urls")), # Include the Category app URLs
+    path('api/', include('apps.tag.urls')),  # Include the Tag app URLs
+    path('api/', include('apps.note.urls')),  # Include the Note app URLs
+    path('api/', include('apps.video.urls')),  # Include the Video app URLs
+    path('api/', include('apps.space.urls')),  # Include the Space app URLs
     ]
