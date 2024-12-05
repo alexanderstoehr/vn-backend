@@ -1,5 +1,6 @@
 # apps/tag/views.py
 from rest_framework import status
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Tag
@@ -48,3 +49,12 @@ class DetachTagFromVideoView(APIView):
         video.save()
 
         return Response({'message': 'Tag removed from video'}, status=status.HTTP_200_OK)
+
+
+class ListUsersTagsView(ListAPIView):
+    serializer_class = TagSerializer
+    queryset = Tag.objects.all() #get only users tags
+
+    def get_queryset(self):
+        user_videos = Video.objects.filter(video_owner__user=self.request.user)
+        return Tag.objects.filter(videos__in=user_videos).distinct()

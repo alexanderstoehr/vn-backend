@@ -40,3 +40,11 @@ class AttachCategoryToVideo(APIView):
         video.save()
 
         return Response({'message': 'Category attached to video'}, status=status.HTTP_200_OK)
+
+class ListUsersCategoryView(ListAPIView):
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()  # get only users tags
+
+    def get_queryset(self):
+        user_videos = Video.objects.filter(video_owner__user=self.request.user)
+        return Category.objects.filter(videos__in=user_videos).distinct()
