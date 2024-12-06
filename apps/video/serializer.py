@@ -12,18 +12,19 @@ class VideoSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True, read_only=True)
     category = CategorySerializer()
     notes_count = serializers.SerializerMethodField()
+    tags_count = serializers.SerializerMethodField()
 
 
     class Meta:
         model = Video
-        fields = ["id", "video_title", "video_description","video_host_url", "video_host_id","video_host_thumbnail_url","created_at","video_owner", "notes_count", "category", "tags"]
+        fields = ["id", "video_title", "video_description","video_host_url", "video_host_id","video_host_thumbnail_url","created_at","video_owner", "notes_count", "category","tags_count", "tags"]
 
 
     def get_notes_count(self, obj):
         return obj.notes.count()
 
-    #def get_video_owner(self, obj):
-     #   return obj.video_owner.user
+    def get_tags_count(self, obj):
+        return obj.tags.count()
 
 class VideoCreateSerializer(serializers.ModelSerializer):
 
