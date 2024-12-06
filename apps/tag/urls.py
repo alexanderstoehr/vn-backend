@@ -5,5 +5,5 @@ from .views import AttachTagToVideoView, DetachTagFromVideoView, ListUsersTagsVi
 urlpatterns = [
     path('tag/attach/<int:video_id>/', AttachTagToVideoView.as_view(), name='attach-tag-to-video'),
     path('tag/detach/<int:video_id>/', DetachTagFromVideoView.as_view(), name='detach-tag-from-video'),
-    path('tag/list/', ListUsersTagsView.as_view(), name='list-users-tags'),
+    path('tag/user/', ListUsersTagsView.as_view(), name='list-users-tags'),
     ]

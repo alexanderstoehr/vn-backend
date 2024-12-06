@@ -43,7 +43,7 @@ class AttachCategoryToVideo(APIView):
 
 class ListUsersCategoryView(ListAPIView):
     serializer_class = CategorySerializer
-    queryset = Category.objects.all()  # get only users tags
+    queryset = Category.objects.all()  #get only users cats
 
     def get_queryset(self):
         user_videos = Video.objects.filter(video_owner__user=self.request.user)

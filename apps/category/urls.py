@@ -5,6 +5,6 @@ from apps.category.views import ListAllCategories, AttachCategoryToVideo, ListUs
 urlpatterns = [
     path('', ListAllCategories.as_view(), name='list-all-categories'),
     path("attach/<int:video_id>/", AttachCategoryToVideo.as_view(), name="attach-category-to-video"),
-    path('list/', ListUsersCategoryView.as_view(), name='list-users-categories'),
+    path('user/', ListUsersCategoryView.as_view(), name='list-users-categories'),
 
     ]
