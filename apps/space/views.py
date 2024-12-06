@@ -16,7 +16,7 @@ class ListCreateSpaceView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Space.objects.filter(space_owner__user=self.request.user)
+        return Space.objects.filter(space_owner__user__id=self.request.user.id)
 
 
 # # GET a single space and its videos
