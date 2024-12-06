@@ -18,6 +18,12 @@ class GetNotesFromVideoView(GenericAPIView):
         return Note.objects.filter(video_id=video_id)
 
     def get(self, request, *args, **kwargs):
+        video_id = self.kwargs.get('video_id')
+        try:
+            Video.objects.get(id=video_id)
+        except Video.DoesNotExist:
+            return Response({'error': 'No video with that id'}, status=status.HTTP_404_NOT_FOUND)
+
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
@@ -37,7 +43,10 @@ class CreateNoteView(CreateAPIView):
     queryset = Note.objects.all()
 
     def post(self, request, *args, **kwargs):
-        video_id = self.kwargs.get('video_id')
+        video_id = request.data.get('video_id')
+        if not video_id:
+            return Response({'error': 'Video ID is required'}, status=status.HTTP_400_BAD_REQUEST)
+
         try:
             video = Video.objects.get(id=video_id)
         except Video.DoesNotExist:
