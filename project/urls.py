@@ -15,10 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+
+from apps.category import urls
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -35,4 +37,9 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-]
+    path("api/categories/", include("apps.category.urls")), # Include the Category app URLs
+    path('api/', include('apps.tag.urls')),  # Include the Tag app URLs
+    path('api/', include('apps.note.urls')),  # Include the Note app URLs
+    path('api/', include('apps.video.urls')),  # Include the Video app URLs
+    path('api/', include('apps.space.urls')),  # Include the Space app URLs
+    ]

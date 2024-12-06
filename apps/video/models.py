@@ -3,12 +3,14 @@ from django.db import models
 from apps.category.models import Category
 from apps.space.models import Space
 from apps.tag.models import Tag
+from apps.user_profile.models import UserProfile
 
 
 # Create your models here.
 class Video(models.Model):
 
     space = models.ForeignKey(Space, on_delete=models.CASCADE, related_name='videos')
+    video_owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='videos')
 
     # notes in note model
 
