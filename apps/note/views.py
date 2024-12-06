@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework.exceptions import PermissionDenied, NotFound
 from rest_framework.generics import GenericAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
 from rest_framework.response import Response
 
@@ -34,7 +35,16 @@ class GetNotesFromVideoView(GenericAPIView):
 # # PATCH an existing single note
 class RetrieveUpdateDeleteNoteView(RetrieveUpdateDestroyAPIView):
     serializer_class = NoteSerializer
-    queryset = Note.objects.all()
+
+    def get_queryset(self):
+        return Note.objects.all()
+
+    def get_object(self):
+        obj = super().get_object()
+        if obj.video.video_owner.user.id != self.request.user.id:
+            raise PermissionDenied("You do not have permission to modify this note.")
+        return obj
+
 
 
 # # POST a new note

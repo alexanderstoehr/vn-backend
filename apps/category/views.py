@@ -12,6 +12,9 @@ from apps.video.models import Video
 
 # Create your views here.
 
+# ToDo: Category views need to be restful
+
+
 # # GET all the categories read only
 class ListAllCategories (ListAPIView):
     queryset = Category.objects.all()

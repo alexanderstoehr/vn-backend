@@ -7,6 +7,8 @@ from .models import Tag
 from .serializer import TagSerializer
 from apps.video.models import Video  # Import the Video model
 
+# ToDo: Tag views need to be restful
+
 class AttachTagToVideoView(APIView):
     def post(self, request, *args, **kwargs):
         tag_name = request.data.get('tag_name')
