@@ -16,3 +16,14 @@ class SpaceSerializer(serializers.ModelSerializer):
     def get_videos_count(self, obj):
         return obj.videos.count()
 
+class SpaceCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Space
+        fields = ["space_name", "space_description","space_owner"]
+
+        extra_kwargs = {
+            "space_name": {"required": True},
+            "space_description": {"required": True},
+            "space_owner": {"required": True},
+            }

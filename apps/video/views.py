@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.generics import RetrieveUpdateDestroyAPIView,ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -30,7 +31,12 @@ class ListCreateVideosView(ListCreateAPIView):
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        # Add the video owner to the request data before saving
+        data = request.data.copy()
+        data['video_owner'] = request.user.id
+        serializer = self.get_serializer(data=data)
+
+        # Check if the data is valid and save
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -41,6 +47,14 @@ class ListCreateVideosView(ListCreateAPIView):
 class RetrieveUpdateDeletevideoView(RetrieveUpdateDestroyAPIView):
     serializer_class = VideoSerializer
     queryset = Video.objects.all()
+    permission_classes = [IsAuthenticated]
+
+
+    def get_object(self):
+        obj = super().get_object()
+        if obj.video_owner.user.id != self.request.user.id:
+            raise PermissionDenied("You do not have permission to modify this Video.")
+        return obj
 
 
 # # POST a new video with tags and categories

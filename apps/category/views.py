@@ -2,6 +2,7 @@ from unicodedata import category
 
 from rest_framework import status
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -12,13 +13,20 @@ from apps.video.models import Video
 
 # Create your views here.
 
+# ToDo: Category views need to be restful
+
+
 # # GET all the categories read only
 class ListAllCategories (ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticated]
+
 
 
 class AttachCategoryToVideo(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, *args, **kwargs):
         category_id = request.data.get('category_id')
         video_id = self.kwargs.get('video_id')
@@ -43,7 +51,9 @@ class AttachCategoryToVideo(APIView):
 
 class ListUsersCategoryView(ListAPIView):
     serializer_class = CategorySerializer
-    queryset = Category.objects.all()  #get only users cats
+    queryset = Category.objects.all()
+    permission_classes = [IsAuthenticated]
+    #get only users cats
 
     def get_queryset(self):
         user_videos = Video.objects.filter(video_owner__user=self.request.user)
