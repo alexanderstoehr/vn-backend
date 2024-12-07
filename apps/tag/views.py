@@ -1,6 +1,7 @@
 # apps/tag/views.py
 from rest_framework import status
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Tag
@@ -10,6 +11,8 @@ from apps.video.models import Video  # Import the Video model
 # ToDo: Tag views need to be restful
 
 class AttachTagToVideoView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, *args, **kwargs):
         tag_name = request.data.get('tag_name')
         video_id = self.kwargs.get('video_id')
@@ -30,6 +33,8 @@ class AttachTagToVideoView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED if created else status.HTTP_200_OK)
 
 class DetachTagFromVideoView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, *args, **kwargs):
         tag_name = request.data.get('tag_name')
         video_id = self.kwargs.get('video_id')
@@ -56,6 +61,8 @@ class DetachTagFromVideoView(APIView):
 class ListUsersTagsView(ListAPIView):
     serializer_class = TagSerializer
     queryset = Tag.objects.all() #get only users tags
+    permission_classes = [IsAuthenticated]
+
 
     def get_queryset(self):
         user_videos = Video.objects.filter(video_owner__user=self.request.user)

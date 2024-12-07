@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.exceptions import PermissionDenied, NotFound
 from rest_framework.generics import GenericAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from apps.note.models import Note
@@ -13,6 +14,8 @@ from apps.video.models import Video
 # # GET all notes from a video
 class GetNotesFromVideoView(GenericAPIView):
     serializer_class = NoteSerializer
+    permission_classes = [IsAuthenticated]
+
 
     def get_queryset(self):
         video_id = self.kwargs.get('video_id')
@@ -35,6 +38,8 @@ class GetNotesFromVideoView(GenericAPIView):
 # # PATCH an existing single note
 class RetrieveUpdateDeleteNoteView(RetrieveUpdateDestroyAPIView):
     serializer_class = NoteSerializer
+    permission_classes = [IsAuthenticated]
+
 
     def get_queryset(self):
         return Note.objects.all()
@@ -51,6 +56,8 @@ class RetrieveUpdateDeleteNoteView(RetrieveUpdateDestroyAPIView):
 class CreateNoteView(CreateAPIView):
     serializer_class = NoteSerializer
     queryset = Note.objects.all()
+    permission_classes = [IsAuthenticated]
+
 
     def post(self, request, *args, **kwargs):
         video_id = request.data.get('video_id')

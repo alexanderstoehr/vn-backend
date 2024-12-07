@@ -47,6 +47,8 @@ class ListCreateVideosView(ListCreateAPIView):
 class RetrieveUpdateDeletevideoView(RetrieveUpdateDestroyAPIView):
     serializer_class = VideoSerializer
     queryset = Video.objects.all()
+    permission_classes = [IsAuthenticated]
+
 
     def get_object(self):
         obj = super().get_object()

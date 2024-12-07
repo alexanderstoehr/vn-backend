@@ -47,6 +47,8 @@ class ListCreateSpaceView(ListCreateAPIView):
 class RetrieveUpdateDeleteSpaceView(RetrieveUpdateDestroyAPIView):
     serializer_class = SpaceSerializer
     queryset = Space.objects.all()
+    permission_classes = [IsAuthenticated]
+
 
     def get_object(self):
         obj = super().get_object()
