@@ -11,9 +11,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+
+
 clerk_client = Clerk()
 clerk_client.api_key = os.environ.get('CLERK_API_KEY')
 clerk_client.secret_key = os.environ.get('CLERK_SECRET_KEY')
+
+# Log the keys for debugging
+logger.info(f"CLERK_API_KEY: {clerk_client.api_key}, CLERK_SECRET_KEY: {clerk_client.secret_key}")
 
 class ClerkAuthentication(BaseAuthentication):
     def authenticate(self, request):
