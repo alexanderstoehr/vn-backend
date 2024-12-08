@@ -5,6 +5,12 @@ from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 from apps.user_profile.models import UserProfile
 
+from authentication.exceptions import TokenExpiredError, InvalidTokenError
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 clerk_client = Clerk()
 clerk_client.api_key = os.environ.get('CLERK_API_KEY')
 clerk_client.secret_key = os.environ.get('CLERK_SECRET_KEY')
@@ -32,5 +38,13 @@ class ClerkAuthentication(BaseAuthentication):
         try:
             user_data = clerk_client.tokens.verify(token)
             return user_data
-        except Exception:
-            return None
+
+        except TokenExpiredError:
+            logger.error("Token validation failed: Token is expired")
+            raise AuthenticationFailed('Invalid Clerk token: Token is expired')
+        except InvalidTokenError:
+            logger.error("Token validation failed: Token is invalid")
+            raise AuthenticationFailed('Invalid Clerk token: Token is invalid')
+        except Exception as e:
+            logger.error(f"Token validation failed: {e}")
+            raise AuthenticationFailed('Invalid Clerk token: Token validation failed')
