@@ -8,4 +8,5 @@ dependencies:
         - django-dotenv==1.4.2
         - djangorestframework==3.15.2
         - drf-yasg==1.21.8
+        - clerk_backend_api==1.4.1
 
