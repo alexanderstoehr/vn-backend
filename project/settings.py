@@ -29,15 +29,15 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
     'localhost',
-    "127.0.0.1",
-    "https://venotes.com",
-    "https://veenotes-0f7a29150831.herokuapp.com",
+    '127.0.0.1',
+    'https://venotes.com',
+    'https://veenotes-0f7a29150831.herokuapp.com',
     ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1",
-    "https://venotes.com",
-    "https://veenotes-0f7a29150831.herokuapp.com",
+    'http://127.0.0.1',
+    'https://venotes.com',
+    'https://veenotes-0f7a29150831.herokuapp.com',
     ]
 
 
