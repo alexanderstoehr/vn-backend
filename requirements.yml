@@ -1,6 +1,6 @@
 name: vn-backend
 dependencies:
-    - python=3.8.20
+    - python=3.12.3
     - pip=24.2
     - pip:
         - django==4.2.16
