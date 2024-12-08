@@ -29,6 +29,9 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ['localhost', "127.0.0.1", os.environ.get("FRONTEND_DOMAIN")]
 
+CORS_ALLOWED_ORIGINS = ['localhost', "127.0.0.1", os.environ.get("FRONTEND_DOMAIN")]
+
+
 SERVER_TYPE = os.environ.get("SERVER_TYPE", "local")
 PROD = SERVER_TYPE == "production"
 
@@ -164,4 +167,3 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ALLOWED_ORIGINS = [os.environ.get("MY_LOCALHOST"), os.environ.get("FRONTEND_DOMAIN")]
