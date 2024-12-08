@@ -13,6 +13,8 @@ import ast
 import os
 from pathlib import Path
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +27,10 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ast.literal_eval(os.environ.get("DJANGO_DEBUG", False))
 
-ALLOWED_HOSTS = ['localhost', "127.0.0.1"]
+ALLOWED_HOSTS = ['localhost', "127.0.0.1", os.environ.get("FRONTEND_DOMAIN")]
+
+SERVER_TYPE = os.environ.get("SERVER_TYPE", "local")
+PROD = SERVER_TYPE == "production"
 
 # Application definition
 
@@ -49,10 +54,13 @@ INSTALLED_APPS = [
     # Third-party apps
     "rest_framework",
     "drf_yasg",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -85,17 +93,25 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get("DB_NAME"),
-        "HOST": os.environ.get("DB_HOST"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "PORT": os.environ.get("DB_PORT"),
-
+if PROD:
+    DATABASES = {
+        'default': dj_database_url.config(
+            conn_max_age=600,
+            conn_health_checks=True
+        )
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get("DB_NAME"),
+            "HOST": os.environ.get("DB_HOST"),
+            "USER": os.environ.get("DB_USER"),
+            "PASSWORD": os.environ.get("DB_PASSWORD"),
+            "PORT": os.environ.get("DB_PORT"),
+
+        }
+    }
 
 
 # Password validation
@@ -146,3 +162,5 @@ REST_FRAMEWORK = {
         'authentication.authentication.ClerkAuthentication',
     ],
 }
+
+CORS_ALLOWED_ORIGINS = [os.environ.get("MY_LOCALHOST"), os.environ.get("FRONTEND_DOMAIN")]
