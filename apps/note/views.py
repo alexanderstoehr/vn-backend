@@ -1,3 +1,4 @@
+from django.template.context_processors import request
 from rest_framework import status
 from rest_framework.exceptions import PermissionDenied, NotFound
 from rest_framework.generics import GenericAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
@@ -19,12 +20,15 @@ class GetNotesFromVideoView(GenericAPIView):
 
     def get_queryset(self):
         video_id = self.kwargs.get('video_id')
-        return Note.objects.filter(video_id=video_id)
+        user = self.request.user
+        return Note.objects.filter(video_id=video_id, video__video_owner__user=user)
 
     def get(self, request, *args, **kwargs):
         video_id = self.kwargs.get('video_id')
         try:
-            Video.objects.get(id=video_id)
+            video = Video.objects.get(id=video_id)
+            if video.video_owner.user != request.user:
+                return Response({'error': 'You have no permissions for this video'}, status=status.HTTP_403_FORBIDDEN)
         except Video.DoesNotExist:
             return Response({'error': 'No video with that id'}, status=status.HTTP_404_NOT_FOUND)
 
