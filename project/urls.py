@@ -41,5 +41,4 @@ urlpatterns = [
     path('', include('apps.note.urls')),  # Include the Note app URLs
     path('', include('apps.video.urls')),  # Include the Video app URLs
     path('', include('apps.space.urls')),  # Include the Space app URLs
-    path('auth/', include('authentication.urls')),  # Include the Authentication app URLs
     ]
