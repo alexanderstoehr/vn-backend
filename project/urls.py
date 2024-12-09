@@ -19,6 +19,8 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework_simplejwt import views as jwt_views
+
 
 # Schema view for API documentation
 schema_view = get_schema_view(
@@ -41,4 +43,8 @@ urlpatterns = [
     path('', include('apps.note.urls')),  # Include the Note app URLs
     path('', include('apps.video.urls')),  # Include the Video app URLs
     path('', include('apps.space.urls')),  # Include the Space app URLs
+
+    path('auth/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('auth/token/verify/', jwt_views.TokenVerifyView.as_view(), name='token_refresh'),
     ]
