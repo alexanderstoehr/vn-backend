@@ -1,8 +1,6 @@
 import time
 from django.core.management.base import BaseCommand
-
 from apps.emails.models import Email
-
 
 class Command(BaseCommand):
     help = 'Send Mails'
@@ -12,4 +10,7 @@ class Command(BaseCommand):
             time.sleep(3)
             emails = Email.objects.filter(is_sent=False)
             for email in emails:
-                email.send()
+                try:
+                    email.send()
+                except Exception as e:
+                    self.stderr.write(f"Error sending email {email.id}: {e}")
