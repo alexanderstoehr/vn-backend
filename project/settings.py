@@ -32,12 +32,14 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'veenotes.com',
+    'api.veenotes.com',
     'veenotes-0f7a29150831.herokuapp.com'
     ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1',
     'https://venotes.com',
+    'api.veenotes.com',
     'https://veenotes-0f7a29150831.herokuapp.com',
     ]
 
@@ -68,7 +70,6 @@ INSTALLED_APPS = [
 
     # Third-party apps
     "rest_framework",
-    "fullurl",
     "drf_yasg",
     "corsheaders",
 ]
