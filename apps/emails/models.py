@@ -51,20 +51,17 @@ class Email(TimeStampedModel):
         super().save(**kwargs)
 
     def send(self):
-        try:
-            message = EmailMessage(
-                subject=self.subject,
-                body=mark_safe(self.compiled_template),
-                to=[self.to],
-                bcc=self.bcc.split(',') if self.bcc else []
-            )
-            message.content_subtype = "html"
-            message.send()
-            self.is_sent = True
-            self.save()
-            logger.info(f"Email sent to {self.to}")
-        except Exception as e:
-            logger.error(f"Failed to send email to {self.to}: {e}")
+        # if not settings.DEBUG:
+        message = EmailMessage(
+            subject=self.subject,
+            body=mark_safe(self.compiled_template),
+            to=self.to.split(','),
+            bcc=self.bcc.split(',')
+        )
+        message.content_subtype = "html"
+        message.send()
+        self.is_sent = True
+        self.save()
 
     def __str__(self):
         return self.subject

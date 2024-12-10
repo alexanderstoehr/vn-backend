@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 from apps.registration.views import RegistrationView, RegistrationValidationView, TokenUserObtainView, PasswordResetView, \
-    PasswordResetValidationView, get_logs
+    PasswordResetValidationView
 
 app_name = 'registration'
 
@@ -13,5 +13,4 @@ urlpatterns = [
     path('registration/validation/', RegistrationValidationView.as_view(), name='registration-validation'),
     path('password-reset/', PasswordResetView.as_view(), name='password-reset'),
     path('password-reset/validation/', PasswordResetValidationView.as_view(), name='password-reset-validation'),
-    path('api/logs/', get_logs, name='get_logs'),
 ]

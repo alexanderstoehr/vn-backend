@@ -99,12 +99,3 @@ class PasswordResetValidationView(GenericAPIView):
             serializer.validated_data,
         )
         return Response(status=status.HTTP_200_OK)
-
-#logs as response
-from django.http import JsonResponse
-from django.conf import settings
-
-def get_logs(request):
-    settings.log_stream.seek(0)
-    logs = settings.log_stream.read()
-    return JsonResponse({'logs': logs})

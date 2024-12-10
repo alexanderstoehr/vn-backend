@@ -199,55 +199,40 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-        'applogfile': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'APPNAME.log'),
-            'maxBytes': 1024*1024*15, # 15MB
-            'backupCount': 10,
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console', 'applogfile'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['console', 'applogfile'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
-        'django.core.mail': {
-            'handlers': ['console', 'applogfile'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
-    },
-    'root': {
-        'handlers': ['console', 'applogfile'],
-        'level': 'DEBUG',
-    },
-}
-
-#logs as response
-import logging
-import io
-
-log_stream = io.StringIO()
-
-
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s %(levelname)s %(message)s',
-    handlers=[
-        logging.StreamHandler(log_stream),
-    ]
-)
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#         'applogfile': {
+#             'level': 'DEBUG',
+#             'class': 'logging.handlers.RotatingFileHandler',
+#             'filename': os.path.join(BASE_DIR, 'APPNAME.log'),
+#             'maxBytes': 1024*1024*15, # 15MB
+#             'backupCount': 10,
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console', 'applogfile'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#         'django.request': {
+#             'handlers': ['console', 'applogfile'],
+#             'level': 'ERROR',
+#             'propagate': False,
+#         },
+#         'django.core.mail': {
+#             'handlers': ['console', 'applogfile'],
+#             'level': 'ERROR',
+#             'propagate': False,
+#         },
+#     },
+#     'root': {
+#         'handlers': ['console', 'applogfile'],
+#         'level': 'DEBUG',
+#     },
+# }
