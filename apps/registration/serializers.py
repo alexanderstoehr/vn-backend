@@ -5,6 +5,7 @@ from apps.emails.models import Email
 from apps.registration.models import RegistrationProfile
 from apps.registration.models import code_generator
 from apps.registration.signals import post_user_registration_validation, post_user_password_reset_validation
+from apps.user_profile.models import UserProfile
 
 User = get_user_model()
 
@@ -102,6 +103,10 @@ class RegistrationValidationSerializer(serializers.Serializer):
         user.save()
         user.registration_profile.save()
         post_user_registration_validation.send(sender=User, user=user)
+
+        # Create user profile after validation
+        UserProfile.objects.create(user=user)
+
         return user
 
 
