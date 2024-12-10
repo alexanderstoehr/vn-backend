@@ -63,9 +63,12 @@ INSTALLED_APPS = [
     "apps.basic_user",
     "apps.user_profile",
     "apps.video",
+    "apps.registration",
+    "apps.emails",
 
     # Third-party apps
     "rest_framework",
+    "fullurl",
     "drf_yasg",
     "corsheaders",
 ]
@@ -184,3 +187,52 @@ SIMPLE_JWT = {
 'ACCESS_TOKEN_LIFETIME': timedelta(days=2),
 'REFRESH_TOKEN_LIFETIME': timedelta(days=5)
 }
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#         'applogfile': {
+#             'level': 'DEBUG',
+#             'class': 'logging.handlers.RotatingFileHandler',
+#             'filename': os.path.join(BASE_DIR, 'APPNAME.log'),
+#             'maxBytes': 1024*1024*15, # 15MB
+#             'backupCount': 10,
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console', 'applogfile'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#         'django.request': {
+#             'handlers': ['console', 'applogfile'],
+#             'level': 'ERROR',
+#             'propagate': False,
+#         },
+#         'django.core.mail': {
+#             'handlers': ['console', 'applogfile'],
+#             'level': 'ERROR',
+#             'propagate': False,
+#         },
+#     },
+#     'root': {
+#         'handlers': ['console', 'applogfile'],
+#         'level': 'DEBUG',
+#     },
+# }
