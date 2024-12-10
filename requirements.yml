@@ -13,4 +13,7 @@ dependencies:
         - dj-database-url==2.3.0
         - whitenoise==6.7.0
         - djangorestframework_simplejwt==5.3.1
+        - django-extensions==3.2.3
+        - django-fullurl==1.4
+
 

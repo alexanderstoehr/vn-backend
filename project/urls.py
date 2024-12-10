@@ -43,8 +43,7 @@ urlpatterns = [
     path('', include('apps.note.urls')),  # Include the Note app URLs
     path('', include('apps.video.urls')),  # Include the Video app URLs
     path('', include('apps.space.urls')),  # Include the Space app URLs
+    path('auth/', include('apps.registration.urls')),
 
-    path('auth/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('auth/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
-    path('auth/token/verify/', jwt_views.TokenVerifyView.as_view(), name='token_refresh'),
-    ]
+]
+
