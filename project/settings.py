@@ -37,7 +37,7 @@ ALLOWED_HOSTS = [
     ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1',
+    'http://localhost:5173',
     'https://venotes.com',
     'https://api.veenotes.com',
     'https://veenotes-0f7a29150831.herokuapp.com',
