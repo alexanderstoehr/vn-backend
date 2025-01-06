@@ -1,12 +1,13 @@
-            - name: Add To GitHub projects
-  uses: actions/add-to-project@v1.0.2
-  with:
-    # URL of the project to add issues to
-    project-url: https://github.com/users/alexanderstoehr/projects/1
-    # A GitHub personal access token with write access to the project
-    github-token: github-token: ${{ secrets.ACTIONS_PAT }}
-    # A comma-separated list of labels to use as a filter for issue to be added
-    labeled: # optional
-    # The behavior of the labels filter, AND to match all labels, OR to match any label, NOT to exclude any listed label (default is OR)
-    label-operator: # optional
-          
+name: Add To GitHub projects
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add To GitHub projects
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/users/alexanderstoehr/projects/1
+          github-token: ${{ secrets.ACTIONS_PAT }}
+          labeled: # optional
+          label-operator: # optional
