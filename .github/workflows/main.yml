@@ -1,5 +1,9 @@
 name: Add To GitHub projects
 
+on: 
+  issues:
+    types: [opened]
+
 jobs:
   add-to-project:
     runs-on: ubuntu-latest
