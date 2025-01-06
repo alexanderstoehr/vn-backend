@@ -12,6 +12,6 @@ jobs:
         uses: actions/add-to-project@v1.0.2
         with:
           project-url: https://github.com/users/alexanderstoehr/projects/1
-          github-token: ${{ secrets.ACTIONS_PAT }}
+          github-token: ${{ secrets.ACTIONS_PAT_CL }}
           labeled: # optional
           label-operator: # optional
